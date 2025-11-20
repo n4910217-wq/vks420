@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Send } from 'lucide-react';
-import { CONTACTS } from '../constants';
+import { useData } from '../context/DataContext';
 
 const Contacts: React.FC = () => {
+  const { content } = useData();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -46,7 +47,7 @@ const Contacts: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-lg mb-1">Адрес</h3>
-                  <p className="text-gray-600 text-lg">{CONTACTS.address}</p>
+                  <p className="text-gray-600 text-lg">{content.contacts.address}</p>
                 </div>
               </div>
 
@@ -56,8 +57,8 @@ const Contacts: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-lg mb-1">Телефон</h3>
-                  <a href={`tel:${CONTACTS.phone}`} className="text-lg text-vks-brown hover:underline font-medium">
-                    {CONTACTS.phoneDisplay}
+                  <a href={`tel:${content.contacts.phone}`} className="text-lg text-vks-brown hover:underline font-medium">
+                    {content.contacts.phoneDisplay}
                   </a>
                 </div>
               </div>
@@ -65,7 +66,7 @@ const Contacts: React.FC = () => {
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
                <a
-                href={CONTACTS.whatsappUrl}
+                href={content.contacts.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white border-2 border-vks-brown text-vks-brown px-6 py-3 rounded-lg font-medium flex items-center justify-center hover:bg-vks-brown hover:text-white transition-colors"
@@ -73,7 +74,7 @@ const Contacts: React.FC = () => {
                 Написать в WhatsApp
               </a>
                <a
-                href={CONTACTS.telegramUrl}
+                href={content.contacts.telegramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#229ED9] border-2 border-[#229ED9] text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center hover:bg-[#1b7db0] hover:border-[#1b7db0] transition-colors"

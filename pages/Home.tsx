@@ -1,25 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, ArrowRight, ShieldCheck, Truck, FileText, BarChart } from 'lucide-react';
-import { CONTACTS } from '../constants';
+import { CheckCircle, ArrowRight, ShieldCheck, Truck, FileText, BarChart, Package, Anchor } from 'lucide-react';
+import { useData } from '../context/DataContext';
 
 const Home: React.FC = () => {
+  const { content } = useData();
+
+  // Map icons based on service title (simple heuristic for this demo)
+  const getIcon = (title: string) => {
+    const t = title.toLowerCase();
+    if (t.includes('импорт')) return <Truck size={32} />;
+    if (t.includes('документ')) return <FileText size={32} />;
+    if (t.includes('маркировка')) return <ShieldCheck size={32} />;
+    if (t.includes('логистика')) return <Anchor size={32} />;
+    if (t.includes('бухгалтер')) return <BarChart size={32} />;
+    if (t.includes('сертификат')) return <CheckCircle size={32} />;
+    return <Package size={32} />;
+  };
+
   return (
     <div className="w-full">
       {/* Hero Section */}
       <section className="relative bg-vks-dark text-white py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://picsum.photos/1920/1080?grayscale&blur=2')] opacity-10 bg-cover bg-center"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 font-sans">
-            Легальный импорт <br />
-            <span className="text-vks-beige">и сопровождение бизнеса</span>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 font-sans whitespace-pre-wrap">
+            {content.hero.title}
           </h1>
           <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl font-roboto">
-            ВКС — один партнёр для честного и безопасного бизнеса.
+            {content.hero.subtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <a
-              href={CONTACTS.whatsappUrl}
+              href={content.contacts.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white text-vks-brown border-2 border-white hover:bg-transparent hover:text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center"
@@ -27,7 +40,7 @@ const Home: React.FC = () => {
               Получить консультацию
             </a>
             <a
-              href={CONTACTS.telegramUrl}
+              href={content.contacts.telegramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-vks-brown text-white border-2 border-vks-brown hover:bg-transparent px-8 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center"
@@ -105,19 +118,12 @@ const Home: React.FC = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { title: 'Импорт под ключ', icon: <Truck size={32} /> },
-              { title: 'Разрешительные документы', icon: <FileText size={32} /> },
-              { title: 'Маркировка «Честный Знак»', icon: <ShieldCheck size={32} /> },
-              { title: 'Сертификация', icon: <CheckCircle size={32} /> },
-              { title: 'Логистика', icon: <Truck size={32} /> },
-              { title: 'Бухгалтерия и юр. поддержка', icon: <BarChart size={32} /> },
-            ].map((service, index) => (
+            {content.services.map((service, index) => (
               <div key={index} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border-b-4 border-vks-brown">
-                <div className="text-vks-brown mb-4">{service.icon}</div>
+                <div className="text-vks-brown mb-4">{getIcon(service.title)}</div>
                 <h3 className="text-xl font-bold text-vks-dark mb-2">{service.title}</h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  Полное сопровождение и профессиональный подход к решению ваших задач.
+                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                  {service.description}
                 </p>
                 <Link to="/services" className="text-vks-brown font-medium text-sm flex items-center hover:underline">
                   Подробнее <ArrowRight size={16} className="ml-1" />
@@ -206,7 +212,7 @@ const Home: React.FC = () => {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
                <a
-                href={CONTACTS.whatsappUrl}
+                href={content.contacts.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white text-vks-brown font-medium px-6 py-3 rounded-lg text-center hover:bg-vks-beige hover:text-vks-dark transition-colors"
@@ -214,7 +220,7 @@ const Home: React.FC = () => {
                 WhatsApp
               </a>
                <a
-                href={CONTACTS.telegramUrl}
+                href={content.contacts.telegramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-transparent border border-vks-beige text-vks-beige font-medium px-6 py-3 rounded-lg text-center hover:bg-vks-beige hover:text-vks-dark transition-colors"

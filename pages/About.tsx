@@ -1,7 +1,9 @@
 import React from 'react';
-import { CONTACTS } from '../constants';
+import { useData } from '../context/DataContext';
 
 const About: React.FC = () => {
+  const { content } = useData();
+
   return (
     <div className="bg-white min-h-screen">
       {/* Header Banner */}
@@ -37,7 +39,7 @@ const About: React.FC = () => {
           <h2 className="text-2xl font-bold text-vks-dark mb-4">Наша миссия</h2>
           <p className="mb-8">
             Создавать безопасную и прозрачную среду для ведения бизнеса с зарубежными партнерами. 
-            Мы помогаем предпринимателям «Садовода» и импортерам по всей России легализовать свои поставки, делая бизнес устойчивым и масштабируемым.
+            Мы помогаем предпринимателям «Садовода» и импортёров по всей России легализовать свои поставки, делая бизнес устойчивым и масштабируемым.
           </p>
 
           <h2 className="text-2xl font-bold text-vks-dark mb-4">Собственный Таможенный Склад</h2>
@@ -50,7 +52,7 @@ const About: React.FC = () => {
         <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-6">
             <span className="text-vks-dark font-bold">Готовы начать сотрудничество?</span>
             <a 
-                href={CONTACTS.whatsappUrl}
+                href={content.contacts.whatsappUrl}
                 className="bg-white text-vks-brown border border-vks-brown px-6 py-2 rounded-full font-medium hover:bg-vks-brown hover:text-white transition-colors"
             >
                 Связаться с нами

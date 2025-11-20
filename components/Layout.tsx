@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { NAV_LINKS, CONTACTS } from '../constants';
+import { NAV_LINKS } from '../constants';
+import { useData } from '../context/DataContext';
 import { Menu, X, MessageCircle, Send } from 'lucide-react';
 
 const Layout: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { content } = useData(); // Используем динамические данные
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
@@ -45,7 +47,7 @@ const Layout: React.FC = () => {
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center space-x-4">
               <a
-                href={CONTACTS.whatsappUrl}
+                href={content.contacts.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 rounded-full border border-vks-brown text-vks-brown hover:bg-vks-brown hover:text-white transition-all"
@@ -54,7 +56,7 @@ const Layout: React.FC = () => {
                 <MessageCircle size={20} />
               </a>
               <a
-                href={CONTACTS.telegramUrl}
+                href={content.contacts.telegramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-vks-brown text-white hover:bg-vks-dark transition-all"
@@ -92,7 +94,7 @@ const Layout: React.FC = () => {
               ))}
               <div className="flex space-x-4 mt-6 px-3">
                 <a
-                  href={CONTACTS.whatsappUrl}
+                  href={content.contacts.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center py-2 border border-vks-brown rounded-md text-vks-brown font-medium"
@@ -100,7 +102,7 @@ const Layout: React.FC = () => {
                   <MessageCircle className="mr-2" size={18} /> WhatsApp
                 </a>
                 <a
-                  href={CONTACTS.telegramUrl}
+                  href={content.contacts.telegramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center py-2 bg-vks-brown rounded-md text-white font-medium"
@@ -155,11 +157,11 @@ const Layout: React.FC = () => {
             <div>
               <h4 className="text-lg font-semibold text-white mb-4">Контакты</h4>
               <div className="space-y-4 text-sm text-gray-300">
-                <p>{CONTACTS.address}</p>
-                <p className="text-white font-medium">{CONTACTS.phoneDisplay}</p>
+                <p>{content.contacts.address}</p>
+                <p className="text-white font-medium">{content.contacts.phoneDisplay}</p>
                 <div className="flex space-x-4 mt-2">
                   <a
-                    href={CONTACTS.whatsappUrl}
+                    href={content.contacts.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-vks-beige hover:text-white transition-colors"
@@ -167,7 +169,7 @@ const Layout: React.FC = () => {
                     WhatsApp
                   </a>
                   <a
-                    href={CONTACTS.telegramUrl}
+                    href={content.contacts.telegramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-vks-beige hover:text-white transition-colors"
@@ -179,8 +181,9 @@ const Layout: React.FC = () => {
             </div>
           </div>
           
-          <div className="border-t border-white/10 mt-12 pt-8 text-center text-xs text-gray-500">
+          <div className="border-t border-white/10 mt-12 pt-8 flex justify-between items-center text-xs text-gray-500">
             <p>&copy; {new Date().getFullYear()} ООО «Внешторг Консьерж Сервис». Все права защищены.</p>
+            <Link to="/login" className="opacity-50 hover:opacity-100">Вход для администратора</Link>
           </div>
         </div>
       </footer>
