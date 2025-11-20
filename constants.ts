@@ -1,4 +1,4 @@
-import { ContactInfo, NavLink, SiteContent } from './types';
+import { NavLink, SiteContent } from './types';
 
 export const COLORS = {
   brown: '#7B4F2E',
