@@ -181,9 +181,8 @@ const Layout: React.FC = () => {
             </div>
           </div>
           
-          <div className="border-t border-white/10 mt-12 pt-8 flex justify-between items-center text-xs text-gray-500">
+          <div className="border-t border-white/10 mt-12 pt-8 flex justify-center items-center text-xs text-gray-500">
             <p>&copy; {new Date().getFullYear()} ООО «Внешторг Консьерж Сервис». Все права защищены.</p>
-            <Link to="/login" className="opacity-50 hover:opacity-100">Вход для администратора</Link>
           </div>
         </div>
       </footer>
